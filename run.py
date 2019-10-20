@@ -14,7 +14,7 @@ statcode = 0
 statholder = 0
 searchRes = []
 newsRes = []
-newsapi = NewsApiClient(api_key = 'a5cdf10132df4cabaa04da5a39a3d103')
+newsapi = NewsApiClient(api_key = '--')
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms():
