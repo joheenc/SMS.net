@@ -104,7 +104,6 @@ def sms():
 
 def searchResults(query):
     #Searches Google
-    r = requests.get("https://www.googleapis.com/customsearch/v1?key=AIzaSyDUWG4it4VI2Q-OfjuO0_sKAqNV1MxU7Xg&cx=016941051599191875790:7bkp8je7amz&q="+query)
 
     searchResultsStr = json.loads(r.text)["items"]
     searchResults = []
@@ -145,5 +144,24 @@ def urlToParagraphs(url):
     except Exception as e:
         print(str(e))
         return []
+
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.fed = []
+    def handle_data(self, d):
+        if self.get_starttag_text() == '<div style="font-size:0.9em">':
+            self.fed.append(' ('+d+')')
+        else:
+            self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
 
 
