@@ -104,7 +104,7 @@ def sms():
 
 def searchResults(query):
     #Searches Google
-    r = requests.get("https://www.googleapis.com/customsearch/v1?key=AIzaSyDUWG4it4VI2Q-OfjuO0_sKAqNV1MxU7Xg&cx=016941051599191875790:7bkp8je7amz&q="+query)
+    r = requests.get("https://www.googleapis.com/customsearch/v1?key=&cx=="+query)
 
     searchResultsStr = json.loads(r.text)["items"]
     searchResults = []
