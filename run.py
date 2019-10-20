@@ -48,3 +48,54 @@ def sms():
                 respStr = "Request error, please try again."
                 statcode = 0
             resp.message(respStr)
+
+    
+    elif statcode == 1: #search
+        if statholder == 0:
+            searchRes, respStr = searchResults(message)
+            resp.message(respStr + "\n\nFor the next 3 results, reply 'next'.")
+            statholder = 100
+            return str(resp)
+        elif statholder == 100: #search option
+            try:
+                statholder = int(message)
+                urlParas = urlToParagraphs(searchRes[statholder-1]["url"])
+                respStr = urlParas[0] + "\n\nFor the next paragraph, reply 'next'."
+            except:
+                respStr = "Error parsing search string, please try again"
+            resp.message(respStr)
+            statcode = 0
+            statholder = 0
+            return str(resp)
+
+
+    elif statcode == 2: #maps
+        directions, respStr = getDirections(message)
+        resp.message(respStr)
+        statcode = 0
+        statholder = 0
+        return str(resp)
+
+    elif statcode == 3: #news
+        if statholder == 0:
+            newsRes, respStr = getNews(message)
+            resp.message(respStr + "\n\nFor the next 3 results, reply 'next'.")
+            statholder = 100
+            return str(resp)
+        elif statholder == 100: #search option
+            #try:
+            statholder = int(message)
+            urlParas = urlToParagraphs(newsRes[statholder-1]["url"])
+            respStr = urlParas[0] + "\n\nFor the next paragraph, reply 'next'."
+            #except:
+                #respStr = "Error parsing search string, please try again"
+            resp.message(respStr)
+            statcode = 0
+            statholder = 0
+            return str(resp)
+
+
+    elif statcode == 4: #translate
+        translate_client = translate.Client()
+        translateMsg = message.split(',')[0]
+        translateLang = message.split(',')[1].strip()
