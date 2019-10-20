@@ -5,10 +5,10 @@ import urllib.request as urllib
 import re
 
 # Init
-newsapi = NewsApiClient(api_key = 'c9e9c07ecedc48efb0998ab457f74bf4')
+newsapi = NewsApiClient(api_key = '')
 
 def getNews(query):
-    userdata = {'q':query, 'apiKey': 'c9e9c07ecedc48efb0998ab457f74bf4'}
+    userdata = {'q':query, 'apiKey': ''}
     reponse = requests.get('https://newsapi.org/v2/top-headlines?', params=userdata)
     reponse = reponse.json()
 
